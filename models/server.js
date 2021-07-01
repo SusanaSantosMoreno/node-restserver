@@ -38,7 +38,7 @@ class Server {
             res.send('Hello world');
         });
 
-        this.app.use('/api/movies', require('../routes/movies'))
+        this.app.use('/api/user', require('../routes/user'))
     }
 
     listen() {

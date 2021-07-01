@@ -1,6 +1,7 @@
 const { request, response } = require('express')
+const User = require('../models/user')
 
-const moviesGet = (req = request, res = response) => {
+const userGet = (req = request, res = response) => {
     const query = req.query;
 
     res.json({
@@ -9,16 +10,19 @@ const moviesGet = (req = request, res = response) => {
     });
 }
 
-const moviesPost = (req, res = response) => {
-    let { nombre, edad } = req.body;
+const userPost = async (req, res = response) => {
+    let body = req.body;
+    let user = new User(body);
+
+    await user.save();
+
     res.json({
         msg: 'Post API - Controller',
-        nombre,
-        edad
+        user
     });
 }
 
-const moviesPut = (req, res = response) => {
+const userPut = (req, res = response) => {
     let id = req.params.id;
     res.json({
         msg: 'Put API - Controller',
@@ -26,10 +30,10 @@ const moviesPut = (req, res = response) => {
     });
 }
 
-const moviesDelete = (req, res = response) => {
+const userDelete = (req, res = response) => {
     res.json({
         msg: 'Delete API - Controller'
     });
 }
 
-module.exports = { moviesGet, moviesPost, moviesPut, moviesDelete }
+module.exports = { userGet, userPost, userPut, userDelete }
