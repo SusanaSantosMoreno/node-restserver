@@ -25,7 +25,7 @@ class Server {
     }
 
     routes() {
-        router.get('/', (req, res) => {
+        this.app.get('/', (req, res) => {
             res.send('Hello world');
         });
 
