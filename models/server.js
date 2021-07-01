@@ -25,6 +25,10 @@ class Server {
     }
 
     routes() {
+        router.get('/', (req, res) => {
+            res.send('Hello world');
+        });
+
         this.app.use('/api/movies', require('../routes/movies'))
     }
 
