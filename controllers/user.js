@@ -23,7 +23,7 @@ const userPost = async (req, res = response) => {
     await newUser.save();
 
     res.json({
-        msg: `User ${newUser.id} created`,
+        msg: `User ${newUser.id} created`
     });
 }
 
@@ -34,13 +34,17 @@ const userPut = async (req, res = response) => {
     const dbUser = await User.findByIdAndUpdate(id, args);
 
     res.json({
-        msg: `User ${id} updated`,
+        msg: `User ${id} updated`
     });
 }
 
-const userDelete = (req, res = response) => {
+const userDelete = async (req, res = response) => {
+    const { id } = req.params;
+
+    const user = await User.findByIdAndUpdate(id, { status: false });
+
     res.json({
-        msg: 'Delete API - Controller'
+        msg: `User deleted`
     });
 }
 
