@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 
-const userSchema = Schema({
+const UserSchema = Schema({
     name: {
         type: String,
         required: [true, 'name is required']
@@ -32,4 +32,11 @@ const userSchema = Schema({
     }
 });
 
-module.exports = model('User', userSchema);
+
+//modificar la respuesta de la API
+UserSchema.methods.toJSON = function () {
+    const { __v, password, ...newUser } = this.toObject();
+    return newUser;
+}
+
+module.exports = model('User', UserSchema);

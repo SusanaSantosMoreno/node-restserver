@@ -1,5 +1,4 @@
 const { request, response } = require('express');
-const { validationResult } = require('express-validator');
 const User = require('../models/user')
 
 const userGet = (req = request, res = response) => {
@@ -13,26 +12,13 @@ const userGet = (req = request, res = response) => {
 
 const userPost = async (req, res = response) => {
 
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-        return res.status(400).json(error);
-    }
-
     let { name, mail, password, role } = req.body;
-    let user = new User({ name, mail, password, role });
+    let newUser = new User({ name, mail, password, role });
 
-    //verificamos si el correo existe
-    const emailExists = await User.findOne({ mail });
-    if (emailExists) {
-        return res.status(400).json({
-            error: 'Email alredy exists'
-        })
-    }
-
-    await user.save();
+    await newUser.save();
 
     res.json({
-        user
+        user: newUser
     });
 }
 
