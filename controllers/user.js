@@ -12,21 +12,25 @@ const userGet = (req = request, res = response) => {
 
 const userPost = async (req, res = response) => {
 
-    let { name, mail, password, role } = req.body;
-    let newUser = new User({ name, mail, password, role });
+    let { id, name, mail, password, role } = req.body;
+    let newUser = new User({ id, name, mail, password, role });
 
     await newUser.save();
 
     res.json({
-        user: newUser
+        msg: `User ${newUser.id} created`,
     });
 }
 
-const userPut = (req, res = response) => {
-    let id = req.params.id;
+const userPut = async (req, res = response) => {
+    const { id } = req.params;
+    const { _id, password, google, correo, ...args } = req.body;
+
+    //TODO: validar contra base de datos
+    const dbUser = await User.findByIdAndUpdate(id, args);
+
     res.json({
-        msg: 'Put API - Controller',
-        id: id
+        msg: `User ${id} updated`,
     });
 }
 
