@@ -15,15 +15,6 @@ const userGet = async (req = request, res = response) => {
     });
 }
 
-const userLogin = async (req = request, res = response) => {
-
-    const { email, password } = req.query;
-    const users = await User.find({ mail: email, password: password });
-    res.json({
-        users
-    });
-}
-
 const userPost = async (req, res = response) => {
 
     let { id, name, mail, password, role } = req.body;
@@ -57,4 +48,4 @@ const userDelete = async (req, res = response) => {
     });
 }
 
-module.exports = { userGet, userPost, userPut, userDelete, userLogin }
+module.exports = { userGet, userPost, userPut, userDelete }

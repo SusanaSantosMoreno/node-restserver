@@ -73,12 +73,13 @@ class Server {
         const specs = swaggerJSDoc(options);
         this.app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
-        this.app.use('/api/user', require('../routes/user'))
+        this.app.use('/api/auth', require('../routes/auth'));
+        this.app.use('/api/user', require('../routes/user'));
     }
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log(`Example app listening at http://localhost:${this.port}`)
+            console.log(`REST app listening at http://localhost:${this.port}`)
         })
     }
 }
