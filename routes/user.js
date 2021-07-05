@@ -1,7 +1,7 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { userGet, userPost, userPut, userDelete } = require('../controllers/user');
+const { userGet, userPost, userPut, userDelete, userLogin } = require('../controllers/user');
 const { roleValidation, emailValidation, idExistsValidation } = require('../helpers/db-validators');
 const { validateFields } = require('../middlewares/validations');
 
@@ -55,6 +55,8 @@ const router = Router();
  */
 
 router.get('/', userGet);
+
+router.get('/login', userLogin);
 
 router.post('/', [
     check('mail', 'invalid email').isEmail(),

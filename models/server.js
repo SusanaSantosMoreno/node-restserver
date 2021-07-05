@@ -20,7 +20,20 @@ const options = {
             }
         ],
     },
-    apis: ['../routes/*.js']
+    apis: ['../routes/*.js'],
+    paths: {
+        '/api/user': {
+            get: {
+                summary: 'Returns a list of users',
+                description: 'Description',
+                responses: {
+                    '200': {
+                        description: 'OK'
+                    }
+                }
+            }
+        }
+    }
 }
 
 class Server {

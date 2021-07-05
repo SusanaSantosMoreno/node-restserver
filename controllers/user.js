@@ -1,5 +1,5 @@
 const { request, response } = require('express');
-const User = require('../models/user')
+const User = require('../models/user');
 
 const userGet = async (req = request, res = response) => {
 
@@ -12,6 +12,15 @@ const userGet = async (req = request, res = response) => {
 
     res.json({
         total, users
+    });
+}
+
+const userLogin = async (req = request, res = response) => {
+
+    const { email, password } = req.query;
+    const users = await User.find({ mail: email, password: password });
+    res.json({
+        users
     });
 }
 
@@ -48,4 +57,4 @@ const userDelete = async (req, res = response) => {
     });
 }
 
-module.exports = { userGet, userPost, userPut, userDelete }
+module.exports = { userGet, userPost, userPut, userDelete, userLogin }
