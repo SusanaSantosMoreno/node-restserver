@@ -3,6 +3,25 @@ const express = require('express')
 const cors = require('cors')
 
 const { dbConnection } = require('../database/config');
+const swaggerUI = require('swagger-ui-express')
+const swaggerJSDoc = require('swagger-jsdoc');
+
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'REST Server',
+            version: '1.0.0',
+            description: ''
+        },
+        servers: [
+            {
+                url: 'http://localhost:8080'
+            }
+        ],
+    },
+    apis: ['../routes/*.js']
+}
 
 class Server {
     constructor() {
@@ -37,6 +56,9 @@ class Server {
         this.app.get('/', (req, res) => {
             res.send('Hello world');
         });
+
+        const specs = swaggerJSDoc(options);
+        this.app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
         this.app.use('/api/user', require('../routes/user'))
     }
