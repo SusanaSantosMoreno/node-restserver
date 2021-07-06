@@ -11,19 +11,22 @@ const login = async (req, res = response) => {
         const user = await User.findOne({ mail });
         //validamos email
         if (!user) {
-            return res.status(400).json({
+            return res.json({
+                status: false,
                 msg: 'user / password are wrong, the mail not exists'
             });
         }
         //validamos estado
         if (!user.status) {
-            return res.status(400).json({
+            return res.json({
+                status: false,
                 msg: 'user / password are wrong, status: false'
             });
         }
         //validamos contraseña
         if (user.password !== password) {
-            return res.status(400).json({
+            return res.json({
+                status: false,
                 msg: 'user / password are wrong, password is incorrect'
             });
         }
